@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swaranjali School of Music</title>
+    <link rel="icon" type="image/x-icon" href="/static/swaranjali.ico">
+    <style>
+        body {
+            background-color: #F5DEB3;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+        }
+        h1, h2 {
+            color: #8B4513;
+            text-align: center;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+        h2 {
+            font-size: x-large;
+            margin: 40px 40px 10px 40px;
+        }
+        h3 {
+            color: white;
+            text-align: center;
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: x-large;
+            margin: 10px 0; /* Adjusted margin here */
+        }
+        p {
+            font-family: 'Segoe UI', sans-serif;
+            color: #000000;
+            padding: 10px 20px;
+            text-align: left;
+            margin: 5px 20px 0 20px;
+        }
+        .footer-text {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #FFFFFF;
+            padding: 10px 0;
+            text-align: center;
+            margin: 0;
+        }
+        nav {
+            background-color: #8B4513;
+            text-align: center;
+            padding: 10px 0;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        li a {
+            display: block;
+            font-family: 'Courier New', Courier, monospace;
+            color: #FFFFFF;
+            font-size: larger;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+        li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .container {
+            margin: 0;
+        }
+        .image-container {
+            text-align: center;
+            margin: 0;
+        }
+        .school-image {
+            width: 600px;
+            height: auto;
+        }
+        .nav-logo {
+            height: 50px;
+            margin-right: 20px;
+        }
+        .footer {
+            background-color: #8B4513;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .calendar {
+            max-width: 800px;
+            margin: 20px auto;
+            margin-bottom: 50px;
+            border: 1px solid #000;
+            background-color: #fff;
+            color: #000;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .calendar header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Center items vertically */
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+        }
+        .calendar button {
+            flex: 1;
+            max-width: 200px;
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 17px;
+        }
+        .calendar button:hover {
+            background-color: #6b3410;
+        }
+        .calendar table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar th, .calendar td {
+            border: 1px solid #000;
+            width: calc(100% / 7);
+            height: 70px; /* Adjusted height */
+            text-align: center;
+            padding: 5px; /* Adjusted padding */
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+
+        .calendar th {
+            background-color: #000;
+            color: #fff;
+        }
+        .calendar td {
+            cursor: pointer;
+        }
+        .calendar .event {
+            background-color: #000;
+            color: #fff;
+        }
+        .calendar .event:hover {
+            background-color: #333;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #000;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .modal.show {
+            display: block;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .modal-overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/"><img src="/static/swaranjali-logo.png" alt="Swaranjali Logo" class="nav-logo"></a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/media">Media</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="about">
+            <h2>Upcoming Events for Swaranjali School of Music</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div id="calendar" class="calendar">
+            <header>
+                <button id="prevMonth">Previous</button>
+                <h3 id="monthYear"></h3>
+                <button id="nextMonth">Next</button>
+            </header>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="eventModal">
+        <p id="eventText"></p>
+    </div>
+    <div class="container">
+        <div class="footer">
+            <div class="footer-text">COPYRIGHT © 2024 SWARANJALI SCHOOL OF MUSIC - ALL RIGHTS RESERVED.</div>
+        </div>
+    </div>
+
+    <script>
+        const events = {
+            "2024-09-07": "Aim for Seva Show",
+            "2024-08-15": "IAWW Independence Day Show",
+            "2024-06-22": "Crossroads Park Performance, 4:10 PM - 4:50 PM"
+        };
+
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+
+        const monthYear = document.getElementById('monthYear');
+        const calendarBody = document.getElementById('calendarBody');
+        const eventModal = document.getElementById('eventModal');
+        const eventText = document.getElementById('eventText');
+        const modalOverlay = document.getElementById('modalOverlay');
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        modalOverlay.addEventListener('click', () => {
+            eventModal.classList.remove('show');
+            modalOverlay.classList.remove('show');
+        });
+
+        function renderCalendar(month, year) {
+            const firstDay = new Date(year, month).getDay();
+            const daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+            monthYear.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}`;
+            calendarBody.innerHTML = "";
+
+            let dateCounter = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+
+                    if (i === 0 && j < firstDay) {
+                        cell.classList.add('empty');
+                    } else if (dateCounter > daysInMonth) {
+                        cell.classList.add('empty');
+                    } else {
+                        cell.textContent = dateCounter;
+
+                        const eventDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(dateCounter).padStart(2, '0')}`;
+                        if (events[eventDate]) {
+                            cell.classList.add('event');
+                            cell.addEventListener('click', () => {
+                                eventText.textContent = events[eventDate];
+                                eventModal.classList.add('show');
+                                modalOverlay.classList.add('show');
+                            });
+                        } else {
+                            cell.addEventListener('click', () => {
+                                eventText.textContent = "No events scheduled for this day.";
+                                eventModal.classList.add('show');
+                                modalOverlay.classList.add('show');
+                            });
+                        }
+
+                        dateCounter++;
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                // Ensure each row has 7 cells, even if the month ends before filling the last row
+                while (row.children.length < 7) {
+                    const emptyCell = document.createElement('td');
+                    emptyCell.classList.add('empty');
+                    row.appendChild(emptyCell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+        }
+
+        renderCalendar(currentMonth, currentYear);
+    </script>
+</body>
+</html>
