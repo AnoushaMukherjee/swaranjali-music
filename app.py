@@ -8,23 +8,23 @@ app.secret_key = 'your_secret_key'  # Required for flashing messages
 socketio = SocketIO(app)
 
 # app routes
-@app.route('/')
+@app.route('/templates/index')
 def home():
     return render_template('index.html')
 
-@app.route('/about')
+@app.route('/templates/about')
 def about():
     return render_template('about.html')
 
-@app.route('/media')
+@app.route('templates//media')
 def media():
     return render_template('media.html')
 
-@app.route('/events')
+@app.route('templates/events')
 def events():
     return render_template('events.html')
 
-@app.route('/contact')
+@app.route('templates/contact')
 def contact():
     return render_template('contact.html')
 
